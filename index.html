@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,23 +12,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen p-8 flex items-center justify-center">
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-7xl w-full flex flex-col md:flex-row gap-8">
         <!-- Panel de control -->
         <div class="w-full md:w-1/2 space-y-6">
             <h1 class="text-3xl font-bold text-gray-800">Generador de Certificados</h1>
-            <p class="text-gray-600">Sube tus archivos, ajusta las configuraciones y obtén una vista previa del certificado.</p>
+            <p class="text-gray-600">Sube tus archivos, ajusta las configuraciones y obtén una vista previa del
+                certificado.</p>
 
             <!-- Zonas de arrastrar y soltar -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Zona de Excel -->
-                <div id="excelDropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center text-gray-500 hover:border-blue-500 transition-colors duration-200 cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <div id="excelDropZone"
+                    class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center text-gray-500 hover:border-blue-500 transition-colors duration-200 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <p class="font-medium">Arrastra y suelta tu archivo Excel aquí</p>
                     <p class="text-sm">o haz click para subir</p>
@@ -35,9 +44,12 @@
                 </div>
 
                 <!-- Zona de Imagen de Plantilla -->
-                <div id="templateDropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center text-gray-500 hover:border-blue-500 transition-colors duration-200 cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <div id="templateDropZone"
+                    class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center text-gray-500 hover:border-blue-500 transition-colors duration-200 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <p class="font-medium">Arrastra y suelta tu plantilla (JPG, PNG)</p>
                     <p class="text-sm">o haz click para subir</p>
@@ -58,23 +70,29 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label for="nameColumn" class="block text-sm font-medium text-gray-700">Columna de Nombres (Excel)</label>
-                        <input type="text" id="nameColumn" value="Apellidos" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <label for="nameColumn" class="block text-sm font-medium text-gray-700">Columna de Nombres
+                            (Excel)</label>
+                        <input type="text" id="nameColumn" value="Apellidos"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                     <div>
-                        <label for="nameFontSize" class="block text-sm font-medium text-gray-700">Tamaño de Fuente (Nombre)</label>
-                        <input type="number" id="nameFontSize" value="90" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <label for="nameFontSize" class="block text-sm font-medium text-gray-700">Tamaño de Fuente
+                            (Nombre)</label>
+                        <input type="number" id="nameFontSize" value="90"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="nameX" class="block text-sm font-medium text-gray-700">Posición X (Nombre)</label>
-                        <input type="number" id="nameX" value="570" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <input type="number" id="nameX" value="570"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                     <div>
                         <label for="nameY" class="block text-sm font-medium text-gray-700">Posición Y (Nombre)</label>
-                        <input type="number" id="nameY" value="1250" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <input type="number" id="nameY" value="1250"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                 </div>
 
@@ -82,32 +100,41 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label for="numberColumn" class="block text-sm font-medium text-gray-700">Prefijo de Número (ej. 'Of. No.')</label>
-                        <input type="text" id="numberColumn" value="Of. No. " class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <label for="numberColumn" class="block text-sm font-medium text-gray-700">Prefijo de Número (ej.
+                            'Of. No.')</label>
+                        <input type="text" id="numberColumn" value="Of. No. "
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                     <div>
-                        <label for="numberFontSize" class="block text-sm font-medium text-gray-700">Tamaño de Fuente (Número)</label>
-                        <input type="number" id="numberFontSize" value="50" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <label for="numberFontSize" class="block text-sm font-medium text-gray-700">Tamaño de Fuente
+                            (Número)</label>
+                        <input type="number" id="numberFontSize" value="50"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="numberX" class="block text-sm font-medium text-gray-700">Posición X (Número)</label>
-                        <input type="number" id="numberX" value="500" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <input type="number" id="numberX" value="500"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                     <div>
                         <label for="numberY" class="block text-sm font-medium text-gray-700">Posición Y (Número)</label>
-                        <input type="number" id="numberY" value="1125" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                        <input type="number" id="numberY" value="1125"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
                     </div>
                 </div>
 
                 <div id="generationStatus" class="text-center text-sm text-gray-600 mt-4"></div>
-                
-                <button id="downloadButton" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+
+                <button id="downloadButton"
+                    class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Descargar Certificado de Ejemplo (PNG)
                 </button>
-                <button id="generateAllButton" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 mt-2" disabled>
+                <button id="generateAllButton"
+                    class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 mt-2"
+                    disabled>
                     Generar todos los Certificados (PDFs)
                 </button>
             </div>
@@ -236,7 +263,7 @@
             };
             reader.readAsDataURL(file);
         };
-        
+
         // Drag and drop events setup
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             excelDropZone.addEventListener(eventName, preventDefaults, false);
@@ -265,7 +292,7 @@
         // Draw on canvas
         const drawCanvas = () => {
             if (!isImageLoaded) return;
-            
+
             // Clear and draw template image
             ctx.clearRect(0, 0, certificateCanvas.width, certificateCanvas.height);
             ctx.drawImage(templateImage, 0, 0);
@@ -315,7 +342,7 @@
             const numberY = parseInt(numberYInput.value, 10);
             const nameFontSize = parseInt(nameFontSizeInput.value, 10);
             const numberFontSize = parseInt(numberFontSizeInput.value, 10);
-            
+
             // Simple hit-test for name
             ctx.font = `${nameFontSize}px Arial`;
             const nameMetrics = ctx.measureText(currentName);
@@ -366,17 +393,17 @@
             finalCanvas.width = certificateCanvas.width;
             finalCanvas.height = certificateCanvas.height;
             const finalCtx = finalCanvas.getContext('2d');
-            
+
             // Draw all elements on the new canvas
             finalCtx.drawImage(templateImage, 0, 0);
-            
+
             const nameFontSize = parseInt(nameFontSizeInput.value, 10);
             const nameX = parseInt(nameXInput.value, 10);
             const nameY = parseInt(nameYInput.value, 10);
             const numberFontSize = parseInt(numberFontSizeInput.value, 10);
             const numberX = parseInt(numberXInput.value, 10);
             const numberY = parseInt(numberYInput.value, 10);
-            
+
             finalCtx.font = `${nameFontSize}px Arial`;
             finalCtx.fillStyle = 'black';
             finalCtx.textAlign = 'left';
@@ -395,12 +422,13 @@
         });
 
         // Generate all PDFs and ZIP button functionality
+        // Generate all PDFs and ZIP button functionality
         generateAllButton.addEventListener('click', async () => {
             if (!isExcelLoaded || !isImageLoaded) {
                 generationStatus.textContent = 'Por favor, carga tanto el archivo Excel como la plantilla de imagen.';
                 return;
             }
-            
+
             generationStatus.textContent = 'Generando certificados... por favor espera.';
             generateAllButton.disabled = true;
 
@@ -408,9 +436,15 @@
             const imgWidth = templateImage.width;
             const imgHeight = templateImage.height;
 
+            // Set DPI to 300
+            const dpi = 300;
+            // Convert pixel dimensions to inches for 300 DPI
+            const widthInInches = imgWidth / dpi;
+            const heightInInches = imgHeight / dpi;
+
             const nameCol = nameColumnInput.value;
             const numberPrefix = numberColumnInput.value;
-            
+
             for (let i = 0; i < excelData.length; i++) {
                 const row = excelData[i];
                 const fullName = row[nameCol] || `Nombre No. ${i + 1}`;
@@ -420,36 +454,37 @@
 
                 const doc = new jsPDF({
                     orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
-                    unit: 'px',
-                    format: [imgWidth, imgHeight]
+                    unit: 'in',
+                    format: [widthInInches, heightInInches]
                 });
 
-                // Add the image to the PDF
-                doc.addImage(templateImage.src, 'JPEG', 0, 0, imgWidth, imgHeight);
+                // Add the image to the PDF with 300 DPI
+                doc.addImage(templateImage.src, 'JPEG', 0, 0, widthInInches, heightInInches);
 
-                // Add text to the PDF
-                const nameFontSize = parseInt(nameFontSizeInput.value, 10);
-                const nameX = parseInt(nameXInput.value, 10);
-                const nameY = parseInt(nameYInput.value, 10);
-                const numberFontSize = parseInt(numberFontSizeInput.value, 10);
-                const numberX = parseInt(numberXInput.value, 10);
-                const numberY = parseInt(numberYInput.value, 10);
+                // Convert pixel positions to inches for 300 DPI
+                const nameX = parseInt(nameXInput.value, 10) / dpi;
+                const nameY = parseInt(nameYInput.value, 10) / dpi;
+                const numberX = parseInt(numberXInput.value, 10) / dpi;
+                const numberY = parseInt(numberYInput.value, 10) / dpi;
+
+                // Convert font sizes (approximation)
+                const nameFontSize = parseInt(nameFontSizeInput.value, 10) / 4;  // Font size conversion for PDF
+                const numberFontSize = parseInt(numberFontSizeInput.value, 10) / 4;
 
                 doc.setFontSize(nameFontSize);
                 doc.text(fullName, nameX, nameY);
 
                 doc.setFontSize(numberFontSize);
                 doc.text(certificateNumber, numberX, numberY);
-                
+
                 const pdfBlob = doc.output('blob');
                 zip.file(`${fullName}.pdf`, pdfBlob);
 
-                // Simulate a delay for a smoother progress display
-                await new Promise(resolve => setTimeout(resolve, 50));
+
             }
 
             generationStatus.textContent = 'Comprimiendo certificados en un archivo ZIP...';
-            zip.generateAsync({ type: 'blob' }).then(function(content) {
+            zip.generateAsync({ type: 'blob' }).then(function (content) {
                 const link = document.createElement('a');
                 link.download = 'certificados.zip';
                 link.href = URL.createObjectURL(content);
@@ -459,6 +494,7 @@
             });
         });
 
+
         // Initial state
         drawCanvas();
         updateButtonState();
@@ -466,4 +502,5 @@
     </script>
 
 </body>
+
 </html>
