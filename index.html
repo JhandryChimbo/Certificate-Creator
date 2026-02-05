@@ -57,9 +57,19 @@
                 </div>
             </div>
 
-            <div class="mt-4">
-                <p id="excelStatus" class="text-sm text-gray-700"></p>
-                <p id="templateStatus" class="text-sm text-gray-700"></p>
+            <div class="mt-4 space-y-2">
+                <div class="flex items-center justify-between">
+                    <p id="excelStatus" class="text-sm text-gray-700"></p>
+                    <button id="clearExcelButton" class="hidden text-xs bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
+                        Quitar Excel
+                    </button>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p id="templateStatus" class="text-sm text-gray-700"></p>
+                    <button id="clearTemplateButton" class="hidden text-xs bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
+                        Quitar Plantilla
+                    </button>
+                </div>
             </div>
 
             <!-- Área de texto para ingresar nombres manualmente -->
@@ -73,7 +83,12 @@
                     class="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-purple-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
                     Cargar Nombres del Listado
                 </button>
-                <p id="namesStatus" class="text-sm text-gray-700"></p>
+                <div class="flex items-center justify-between">
+                    <p id="namesStatus" class="text-sm text-gray-700"></p>
+                    <button id="clearNamesButton" class="hidden text-xs bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
+                        Limpiar Listado
+                    </button>
+                </div>
             </div>
 
             <hr class="my-6">
@@ -171,6 +186,9 @@
         const namesTextarea = document.getElementById('namesTextarea');
         const loadNamesButton = document.getElementById('loadNamesButton');
         const namesStatus = document.getElementById('namesStatus');
+        const clearExcelButton = document.getElementById('clearExcelButton');
+        const clearTemplateButton = document.getElementById('clearTemplateButton');
+        const clearNamesButton = document.getElementById('clearNamesButton');
         const certificateCanvas = document.getElementById('certificateCanvas');
         const ctx = certificateCanvas.getContext('2d');
         const nameColumnInput = document.getElementById('nameColumn');
@@ -250,6 +268,8 @@
                 // Clear textarea when Excel is loaded
                 namesTextarea.value = '';
                 namesStatus.textContent = '';
+                clearNamesButton.classList.add('hidden');
+                clearExcelButton.classList.remove('hidden');
                 
                 updateButtonState();
                 if (excelData.length > 0) {
@@ -278,6 +298,7 @@
                     isImageLoaded = true;
                     certificateCanvas.width = templateImage.width;
                     certificateCanvas.height = templateImage.height;
+                    clearTemplateButton.classList.remove('hidden');
                     updateButtonState();
                     drawCanvas();
                 };
@@ -311,6 +332,43 @@
         excelDropZone.addEventListener('click', () => excelInput.click());
         templateDropZone.addEventListener('click', () => templateInput.click());
 
+        // Clear Excel data
+        clearExcelButton.addEventListener('click', () => {
+            excelData = null;
+            isExcelLoaded = false;
+            excelInput.value = '';
+            excelStatus.textContent = '';
+            clearExcelButton.classList.add('hidden');
+            currentName = 'Nombre de Ejemplo Apellido de Ejemplo';
+            currentNumber = 'Of. No. 001-2B-PPP-CCA-UEDL-UNL';
+            updateButtonState();
+            drawCanvas();
+        });
+
+        // Clear Template image
+        clearTemplateButton.addEventListener('click', () => {
+            templateImage = new Image();
+            isImageLoaded = false;
+            templateInput.value = '';
+            templateStatus.textContent = '';
+            clearTemplateButton.classList.add('hidden');
+            ctx.clearRect(0, 0, certificateCanvas.width, certificateCanvas.height);
+            updateButtonState();
+        });
+
+        // Clear Names from textarea
+        clearNamesButton.addEventListener('click', () => {
+            excelData = null;
+            isExcelLoaded = false;
+            namesTextarea.value = '';
+            namesStatus.textContent = '';
+            clearNamesButton.classList.add('hidden');
+            currentName = 'Nombre de Ejemplo Apellido de Ejemplo';
+            currentNumber = 'Of. No. 001-2B-PPP-CCA-UEDL-UNL';
+            updateButtonState();
+            drawCanvas();
+        });
+
         // Load names from textarea
         loadNamesButton.addEventListener('click', () => {
             const namesText = namesTextarea.value.trim();
@@ -339,9 +397,11 @@
 
             isExcelLoaded = true;
             excelStatus.textContent = '';
+            clearExcelButton.classList.add('hidden');
             namesStatus.textContent = `${namesArray.length} nombre(s) cargado(s) exitosamente.`;
             namesStatus.classList.remove('text-red-600');
             namesStatus.classList.add('text-green-600');
+            clearNamesButton.classList.remove('hidden');
             
             updateButtonState();
 
